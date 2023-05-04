@@ -1,28 +1,47 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import { mapActions } from 'pinia';
-import UserStore from '@/stores/user'
-import TaskList from '@/components/TaskList.vue';
+import { mapActions, mapState } from 'pinia';
+import UserStore from '@/stores/user';
 
 export default {
   name: 'App',
+  computed: {
+    ...mapState(UserStore, ['user']),
+  },
   components: {
     RouterView,
     RouterLink,
-    TaskList,
   },
   methods: {
-    ...mapActions(UserStore, ['fetchUser'])
+    ...mapActions(UserStore, ['fetchUser']),
+    _checkUserExists() {
+      if (this.user) {
+        this.$router.push({ path: '/' });
+      } else {
+        this.$router.push({ path: 'auth/sign-in' });
+           }
+    }
   },
   async created() {
-    await this.fetchUser()
-  }
+    try {
+    await this.fetchUser();
+    } catch (e) {
+      console.error(e);
+      this._checkUserExists()
+      }
+  },
+  watch: {
+    user(){
+      this._checkUserExists()
+    },
+  },
 }
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <a href="@/views/HomeView.vue"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" /></a>
 
     <div class="wrapper">
       <nav>
@@ -35,10 +54,8 @@ export default {
     </div>
   </header>
   <body>
-    <TaskList />
+    <RouterView />
   </body>
-
-  <RouterView />
 </template>
 
 <style scoped>
@@ -54,9 +71,11 @@ header {
 
 nav {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 nav a.router-link-exact-active {
@@ -71,6 +90,8 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  text-decoration: none;
+  color: black;
 }
 
 nav a:first-of-type {
@@ -86,6 +107,8 @@ nav a:first-of-type {
 
   .logo {
     margin: 0 2rem 0 0;
+    max-width: 120px;
+    height: 80px;
   }
 
   header .wrapper {
