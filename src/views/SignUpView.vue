@@ -1,30 +1,33 @@
+<template>
+    <h2>SignUp View</h2>
+    <button @click="handleSignUp">Sign Up</button>
+    <RouterLink to="/auth/sign-in">Sign In</RouterLink>
+</template>
+
 <script>
 import { mapState, mapActions } from 'pinia';
 import userStore from '@/stores/user.js'
 
 export default {
-    name: 'SignIn',
+    name: 'AuthView',
     computed: {
       ...mapState(userStore, ['user']),
     },
     methods: {
-      ...mapActions(userStore, ['signIn']),
-      handleSignIn() {
+      ...mapActions(userStore, ['signUp']),
+      handleSignUp() {
         const userData = {
           email: '',
           password: '',
         };
-        this.signIn(userData);
+        this.signUp(userData);
       },
     }
-  };
-</script>
+};
 
-<template>
-    <h2>Sign In View</h2>
-    <button @click="handleSignIn">Sign In</button>
-    <RouterLink to="/auth/sign-up">Sign Up</RouterLink>
-</template>
+
+
+</script>
 
 <style>
 </style>
