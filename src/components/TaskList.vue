@@ -84,12 +84,17 @@
   
   <style scoped>
 
+  * {
+    background-color: white;
+  }
+
   input {
     width: 65%;
     text-align: center;
     border: 2px solid black;
     border-radius: 10px;
     padding: 5px;
+    background-color: lightgray;
   }
 
   .list-item {
@@ -124,10 +129,15 @@
   
   .pointer {
     cursor: pointer;
+    background-color: white;
   }
   
   .task-completed {
     color: black;
+  }
+  
+  span {
+    background: none;
   }
   
   .danger {

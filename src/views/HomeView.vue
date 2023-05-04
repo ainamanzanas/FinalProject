@@ -41,5 +41,14 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: white;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
 }
+
+h1 {
+  background-color: white;
+}
+
 </style>

@@ -41,7 +41,7 @@ export default {
 
 <template>
   <header>
-    <a href="@/views/HomeView.vue"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" /></a>
+    <a href="@/views/HomeView.vue"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" /></a>
 
     <div class="wrapper">
       <nav>
@@ -59,6 +59,7 @@ export default {
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -111,7 +112,7 @@ nav a:first-of-type {
     height: 80px;
   }
 
-  header .wrapper {
+  header {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
