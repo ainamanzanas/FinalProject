@@ -1,8 +1,3 @@
-<template>
-    <h1>Auth View</h1>
-    <RouterView />
-</template>
-
 <script>
 import { RouterView } from 'vue-router';
 
@@ -13,6 +8,11 @@ export default {
     }
 }
 </script>
+
+<template>
+    <h1>Organize Your Tasks with AItask</h1>
+    <RouterView />
+</template>
 
 <style>
 </style>
