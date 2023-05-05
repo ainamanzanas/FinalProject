@@ -25,6 +25,7 @@ export default {
   async created() {
     try {
     await this.fetchUser();
+    this._checkUserExists()
     } catch (e) {
       console.error(e);
       this._checkUserExists()
@@ -41,15 +42,14 @@ export default {
 
 <template>
   <header>
-    <a href="@/views/HomeView.vue"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" /></a>
+    <a href=""><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" /></a>
 
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/auth/sign-in">Sign In</RouterLink>
-        <RouterLink to="/auth/sign-out">Sign Out</RouterLink>
         <RouterLink to="/auth/sign-up">Sign Up</RouterLink>
-        <RouterLink to="/my-tasks">My tasks</RouterLink>
+        <RouterLink to="/auth/sign-out">Sign Out</RouterLink>
       </nav>
     </div>
   </header>

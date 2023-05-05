@@ -14,12 +14,12 @@ export default defineStore('userStore', {
             if (!user) throw new Error('User not exsits');
         },
         async signUp({ email, password}) {
-            const { data, error } = await supabase.auth.signUp({
+            const { data: { user }, error } = await supabase.auth.signUp({
                 email,
                 password,
             });
             if (error) throw error;
-            if (data) this.user = data;
+            if (user) this.user = user;
         },
         async signIn({ email, password }) {
             const { data: { user }, error } = await supabase.auth.signInWithPassword({

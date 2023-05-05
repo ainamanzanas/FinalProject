@@ -1,18 +1,17 @@
 <script>
-import { RouterView } from 'vue-router';
+import SignInView from './SignInView.vue';
 
 export default {
     name: 'AuthView',
     components: {
-        RouterView,
-    }
+    SignInView
+}
 }
 </script>
 
 <template>
-    <h1>Organize Your Tasks with AItask</h1>
-    <RouterView />
+    <SignInView class="sign-in-view" />
 </template>
 
-<style>
+<style scoped>
 </style>

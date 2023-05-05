@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import supabase from '@/supabase'
+import supabase from '@/supabase';
 
 export default defineStore('tasks', {
     state() {
@@ -22,7 +22,7 @@ export default defineStore('tasks', {
 
             this.taskList(data);
         } catch(err) {
-            console.error(err);
+            console.log(err);
             }
         },
         async _addNewTask({ title, userId }) {
@@ -38,6 +38,32 @@ export default defineStore('tasks', {
 
             console.log('New Task ---->', data)
             this.taskList.push(...data)
+        },
+        async _updateTaskName() {
+            const { error } = await supabase
+            .from('tasks')
+            .update({ name: '' })
+            .eq('id', 1);
+
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            this.taskList.push()
+        },
+        async _deleteTask() {
+            const { error } = await supabase
+            .from('tasks')
+            .delete()
+            .eq('id', 1)
+
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            this.taskList.push()
         },
     },
 })

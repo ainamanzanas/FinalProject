@@ -20,7 +20,7 @@ export default {
     },
   methods: {
     ...mapActions(TaskStore, ['_addNewTask','_fetchAllTasks']),
-    ...mapActions(UserStore, ['SignOut']),
+    ...mapActions(UserStore, ['signOut']),
   },
   created() {
     this._fetchAllTasks()
@@ -32,6 +32,7 @@ export default {
   <main class="homeView">
     <h1>Your Tasks List</h1>
     <TaskList />
+    <button @click="signOut">Sign Out</button>
   </main>
 </template>
 
@@ -48,7 +49,7 @@ export default {
 }
 
 h1 {
-  background-color: white;
+    background-color: white;
 }
 
 </style>

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import AuthView from '@/views/AuthView.vue';
+import SignInView from '@/views/SignInView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import SignOutView from '@/views/SignOutView.vue';
-import SignInView from '@/views/SignInView.vue';
 import UserStore from '@/stores/user';
 
 const router = createRouter({
@@ -21,17 +21,17 @@ const router = createRouter({
       children: [
         {
           path: 'sign-in',
-          name: 'SignIn',
+          name: 'sign-in',
           component: SignInView
         },
         {
           path: 'sign-up',
-          name: 'SignUp',
+          name: 'sign-up',
           component: SignUpView
         },
         {
           path: 'sign-out',
-          name: 'SignOut',
+          name: 'sign-out',
           component: SignOutView
         }
       ]
@@ -41,12 +41,13 @@ const router = createRouter({
 
 export default router
 
+
 router.beforeEach((to) => {
   const useUserStore = UserStore()
   const isSigninIn = useUserStore.user !== null;
-   if (!isSigninIn && to.name !== 'signIn' && to.name !== 'signOut' ) {
+   if (!isSigninIn && to.name !== 'sign-in' && to.name !== 'sign-up' ) {
     return {
-       name: 'signIn'
+       name: 'sign-in'
     }
    }
 })

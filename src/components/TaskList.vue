@@ -6,9 +6,10 @@
             type="text"
             placeholder="New task"
             v-model="taskName"
-            v-on:keyup.enter="addTask()"
+            v-on:keyup.enter="_addNewTask()"
+            v-for="todo in TaskList" :key="todo.id">{{ todo.title }}
           />
-          <button type="submit" @click="addTask()">Add Task</button>
+          <button type="submit" @click="$event =>_addNewTask({ title: 'New task', userId: 'this.user.id'})">Add Task</button>
           <br>
         </div>
       </div>
@@ -21,7 +22,7 @@
             <li class="list-item" v-for="(task, index) in tasks" v-bind:key="index">
               <span
                 v-bind:class="[task.status ? 'task-completed' : '', 'cursor']"
-                v-on:click="updateTask(task)"
+                v-on:click="_updateTask(task)"
               >
                 <i v-bind:class="[task.status ? 'fas fa-check-circle' : 'far fa-circle']"></i>
               </span>
@@ -30,15 +31,15 @@
                 type="text"
                 v-model="task.name"
                 v-if="task.edit"
-                v-on:keyup.enter="updateTaskName(task)"
+                v-on:keyup.enter="_updateTaskName(task)"
               />
               <span
                 class="pointer edit"
-                v-on:click="toggleEditTask(task)"
+                v-on:click="_toggleEditTask(task)"
               >
                 <i class="fas fa-pen"></i>
               </span>
-              <span class="pointer danger" v-on:click="deleteTask(index)">
+              <span class="pointer danger" v-on:click="_deleteTask(index)">
                 <i class="fas fa-trash-alt"></i>
               </span>
             </li>
@@ -49,6 +50,10 @@
   </template>
   
   <script>
+  import ToDoStore from '@/stores/tasks.js';
+  import { mapActions, mapState } from 'pinia';
+  import UserStore from '@/stores/user';
+
   export default {
     data() {
       return {
@@ -56,8 +61,12 @@
         taskName: '',
       };
     },
+    computed: {
+      ...mapState(UserStore, ['user'])
+    },
     methods: {
-      addTask() {
+      ...mapActions(ToDoStore, ['_fetchAllTasks']),
+      _addNewTask() {
         const task = {
           name: this.taskName,
           status: false,
@@ -66,19 +75,22 @@
         this.tasks.push(task);
         this.taskName = '';
       },
-      deleteTask(index) {
+      _deleteTask(index) {
         this.tasks.splice(index, 1);
       },
-      updateTask(task) {
+      _updateTask(task) {
         task.status = !task.status;
       },
-      toggleEditTask(task) {
+      _toggleEditTask(task) {
         task.edit = !task.edit;
       },
-      updateTaskName(task) {
+      _updateTaskName(task) {
         task.edit = false;
       },
     },
+    created() {
+      this._fetchAllTasks();
+    }
   };
   </script>
   
