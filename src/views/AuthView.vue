@@ -1,16 +1,16 @@
 <script>
-import SignInView from './SignInView.vue';
+import { RouterView } from 'vue-router'
 
 export default {
     name: 'AuthView',
     components: {
-    SignInView
-}
+        RouterView,
+    }
 }
 </script>
 
 <template>
-    <SignInView class="sign-in-view" />
+    <RouterView />
 </template>
 
 <style scoped>

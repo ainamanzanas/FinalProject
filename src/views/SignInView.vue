@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
-import userStore from '@/stores/user.js'
+import userStore from '@/stores/user.js';
+import TaskStore from '@/stores/tasks';
 
 export default {
     name: 'SignIn',
@@ -9,10 +10,12 @@ export default {
     },
     methods: {
       ...mapActions(userStore, ['signIn']),
+      ...mapActions(TaskStore, ['_fetchAllTasks']),
+
       handleSignIn() {
         const userData = {
-          email: '',
-          password: '',
+          email: this.email,
+          password: this.password,
         };
         this.signIn(userData);
       },
@@ -23,17 +26,17 @@ export default {
 <template>
   <div class="sign-in-view">
     <h1>Organize Your Tasks with AItask</h1>
-    <form>
+    <form @submit.prevent>
       <div>
         <label for="email">Email</label>
-        <input id="email" type="email" v-model="email" />
+        <input id="email" type="email" v-model="email" required />
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" type="password" v-model="password" />
+        <input id="password" type="password" v-model="password" required  />
       </div>
       <div class="auth-buttons">
-        <button @click="handleSignIn">Sign In</button>
+        <button @click="handleSignIn" type="submit">Sign In</button>
         <button><RouterLink to="/auth/sign-up" class="router-link">Sign Up</RouterLink></button>
       </div>
     </form>

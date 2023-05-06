@@ -1,14 +1,28 @@
 <template>
     <div class="sign-out-view">
-    <h2>SignOut View</h2>
-    <p>See you soon!</p>
-    <RouterLink to="/auth/sign-in" class="router-link">Sign In</RouterLink>
+    <h2>You sure you want to sign out?</h2>
+    <button @click="handleSignOut" type="submit">Sign Out</button>
     </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'pinia';
+import userStore from '@/stores/user.js';
+
 export default {
-    name: 'SignOutView'
+    name: 'SignOut',
+    computed: {
+      ...mapState(userStore, ['user']),
+    },
+    methods: {
+      ...mapActions(userStore, ['signOut']),
+
+      handleSignOut() {
+
+        this.signOut()
+        this.$router.push({ path: '/auth'})
+      },
+    },
 }
 </script>
 

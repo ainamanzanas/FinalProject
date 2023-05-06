@@ -1,13 +1,16 @@
 <script>
 import { mapState, mapActions } from 'pinia';
+import { RouterLink } from 'vue-router';
 import TaskStore from '@/stores/tasks';
 import UserStore from '@/stores/user';
 import TaskList from '@/components/TaskList.vue';
+
 
 export default {
   name: 'HomeView',
   components: {
     TaskList,
+    RouterLink,
   }, 
   data() {
     return {
@@ -29,11 +32,12 @@ export default {
 </script>
 
 <template>
-  <main class="homeView">
-    <h1>Your Tasks List</h1>
-    <TaskList />
-    <button @click="signOut">Sign Out</button>
-  </main>
+  <RouterLink to="/auth/sign-out">Sign Out</RouterLink>
+  <div class="homeView">
+    <SignOutView />
+        <h1>Your Tasks List</h1>
+  </div>
+  <TaskList />
 </template>
 
 <style scoped>

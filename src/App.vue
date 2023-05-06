@@ -1,41 +1,13 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import { mapActions, mapState } from 'pinia';
-import UserStore from '@/stores/user';
+import { RouterLink } from 'vue-router';
+import HomeView from './views/HomeView.vue';
 
 export default {
   name: 'App',
-  computed: {
-    ...mapState(UserStore, ['user']),
-  },
   components: {
-    RouterView,
     RouterLink,
-  },
-  methods: {
-    ...mapActions(UserStore, ['fetchUser']),
-    _checkUserExists() {
-      if (this.user) {
-        this.$router.push({ path: '/' });
-      } else {
-        this.$router.push({ path: 'auth/sign-in' });
-           }
-    }
-  },
-  async created() {
-    try {
-    await this.fetchUser();
-    this._checkUserExists()
-    } catch (e) {
-      console.error(e);
-      this._checkUserExists()
-      }
-  },
-  watch: {
-    user(){
-      this._checkUserExists()
-    },
-  },
+    HomeView,
+  }
 }
 
 </script>
@@ -47,15 +19,12 @@ export default {
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/auth/sign-in">Sign In</RouterLink>
-        <RouterLink to="/auth/sign-up">Sign Up</RouterLink>
-        <RouterLink to="/auth/sign-out">Sign Out</RouterLink>
+        <button @click="handleSignOut" type="submit">Sign Out</button>
       </nav>
     </div>
   </header>
-  <body>
-    <RouterView />
-  </body>
+          <SignOutView />
+  <HomeView />
 </template>
 
 <style scoped>
@@ -97,6 +66,10 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+button {
+  border: none;
 }
 
 @media (min-width: 1024px) {
