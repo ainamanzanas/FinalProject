@@ -55,6 +55,7 @@
   import UserStore from '@/stores/user';
 
   export default {
+    name: 'TaskList',
     data() {
       return {
         tasks: [],

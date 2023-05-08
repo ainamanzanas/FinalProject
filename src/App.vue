@@ -1,13 +1,20 @@
 <script>
-import { RouterLink } from 'vue-router';
-import HomeView from './views/HomeView.vue';
+import { mapActions } from 'pinia';
+import { RouterLink, RouterView } from 'vue-router';
+import UserStore from '@/stores/user'
 
 export default {
   name: 'App',
   components: {
     RouterLink,
-    HomeView,
-  }
+    RouterView,
+  },
+  methods: {
+    ...mapActions(UserStore, ['fetchUser'])
+  },
+  async created() {
+    await this.fetchUser()
+  },
 }
 
 </script>
@@ -19,12 +26,10 @@ export default {
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <button @click="handleSignOut" type="submit">Sign Out</button>
       </nav>
     </div>
   </header>
-          <SignOutView />
-  <HomeView />
+  <RouterView />
 </template>
 
 <style scoped>

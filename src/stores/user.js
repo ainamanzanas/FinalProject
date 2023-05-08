@@ -1,17 +1,15 @@
 import { defineStore} from "pinia";
-import supabase from '@/supabase';
+import supabase from '@/supabase/index';
 
-export default defineStore('userStore', {
+export default defineStore('UserStore', {
     state: () => ({
         user: undefined,
     }),
 
     actions: {
         async fetchUser() {
-            const { data: { user } } = await supabase.auth.getUser()
-
+            const { data: { user }} = await supabase.auth.getUser()
             this.user = user;
-            if (!user) throw new Error('User not exsits');
         },
         async signUp({ email, password}) {
             const { data: { user }, error } = await supabase.auth.signUp({

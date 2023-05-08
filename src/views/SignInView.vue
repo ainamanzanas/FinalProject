@@ -1,26 +1,35 @@
 <script>
-import { mapState, mapActions } from 'pinia';
-import userStore from '@/stores/user.js';
-import TaskStore from '@/stores/tasks';
+import { mapState, mapActions } from 'pinia'
+import userStore from '@/stores/user'
 
 export default {
-    name: 'SignIn',
-    computed: {
-      ...mapState(userStore, ['user']),
-    },
-    methods: {
-      ...mapActions(userStore, ['signIn']),
-      ...mapActions(TaskStore, ['_fetchAllTasks']),
+  name: 'SignIn',
+  data() {
+    return {
+      email: this.email,
+      password: this.password
+    }
+  },
+  computed: {
+    ...mapState(userStore, ['user'])
+  },
+  methods: {
+    ...mapActions(userStore, ['signIn']),
 
-      handleSignIn() {
+    async handleSignIn() {
+      try {
         const userData = {
           email: this.email,
-          password: this.password,
-        };
-        this.signIn(userData);
-      },
+          password: this.password
+        }
+        await this.signIn(userData)
+        this.$router.push({ name: 'home' })
+      } catch (err) {
+        console.log(err)
+      }
     }
-  };
+  },
+}
 </script>
 
 <template>
@@ -33,14 +42,14 @@ export default {
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" type="password" v-model="password" required  />
+        <input id="password" type="password" v-model="password" required />
       </div>
       <div class="auth-buttons">
         <button @click="handleSignIn" type="submit">Sign In</button>
         <button><RouterLink to="/auth/sign-up" class="router-link">Sign Up</RouterLink></button>
       </div>
     </form>
-   </div> 
+  </div>
 </template>
 
 <style scoped>
@@ -56,19 +65,19 @@ export default {
 }
 
 h1 {
-    background-color: white;
-    padding-top: 1%;
+  background-color: white;
+  padding-top: 1%;
 }
 
 input {
-    width: 65%;
-    text-align: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 5px;
-    background-color: lightgray;
-    margin-left: 2%;
-    margin-bottom: 2%;
+  width: 65%;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: lightgray;
+  margin-left: 2%;
+  margin-bottom: 2%;
 }
 
 form {
@@ -108,5 +117,4 @@ button {
   color: white;
   text-decoration: none;
 }
-
 </style>

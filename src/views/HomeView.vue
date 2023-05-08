@@ -1,17 +1,12 @@
 <script>
-import { mapState, mapActions } from 'pinia';
-import { RouterLink } from 'vue-router';
-import TaskStore from '@/stores/tasks';
-import UserStore from '@/stores/user';
-import TaskList from '@/components/TaskList.vue';
-
+import { mapState, mapActions } from 'pinia'
+import TaskStore from '@/stores/tasks'
+import UserStore from '@/stores/user'
 
 export default {
   name: 'HomeView',
-  components: {
-    TaskList,
-    RouterLink,
-  }, 
+  //components: {
+  // },
   data() {
     return {
       newTaskTitle: '',
@@ -20,24 +15,31 @@ export default {
   computed: {
     ...mapState(TaskStore, ['tasksList']),
     ...mapState(UserStore, ['user'])
-    },
+  },
   methods: {
-    ...mapActions(TaskStore, ['_addNewTask','_fetchAllTasks']),
+    ...mapActions(TaskStore, ['_addNewTask', '_fetchAllTasks']),
     ...mapActions(UserStore, ['signOut']),
+
+    async handleSignOut() {
+      try {
+        await this.signOut()
+        this.$router.push({ name: 'signIn' })
+      } catch (err) {
+        console.error(err)
+      }
+    }
   },
   created() {
     this._fetchAllTasks()
-  },
+  }
 }
 </script>
 
 <template>
-  <RouterLink to="/auth/sign-out">Sign Out</RouterLink>
   <div class="homeView">
-    <SignOutView />
-        <h1>Your Tasks List</h1>
+    <h1>Your Tasks List</h1>
   </div>
-  <TaskList />
+  <button @click="handleSignOut" type="submit" class="sign-out-btn">Sign Out</button>
 </template>
 
 <style scoped>
@@ -50,10 +52,21 @@ export default {
   padding: 5px;
   border: 2px solid black;
   border-radius: 10px;
+  width: 100%;
 }
 
 h1 {
-    background-color: white;
+  background-color: white;
 }
 
+.sign-out-btn {
+  font-weight: bold;
+  width: 25%;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: lightgray;
+  margin: 5%;
+}
 </style>

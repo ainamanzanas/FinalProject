@@ -3,7 +3,6 @@ import HomeView from '@/views/HomeView.vue';
 import AuthView from '@/views/AuthView.vue';
 import SignInView from '@/views/SignInView.vue';
 import SignUpView from '@/views/SignUpView.vue';
-import SignOutView from '@/views/SignOutView.vue';
 import UserStore from '@/stores/user';
 
 const router = createRouter({
@@ -21,40 +20,33 @@ const router = createRouter({
       children: [
         {
           path: 'sign-in',
-          name: 'sign-in',
-          component: SignInView
+          name: 'signIn',
+          component: SignInView,
         },
         {
           path: 'sign-up',
-          name: 'sign-up',
-          component: SignUpView
+          name: 'signUp',
+          component: SignUpView,
         },
-        {
-          path: 'sign-out',
-          name: 'sign-out',
-          component: SignOutView
-        }
       ]
     },
   ]
 })
 
 router.beforeEach(async (to) => {
-
   const { name } = to
-  console.log(name)
-
   const store  = UserStore();
   await store.fetchUser()
 
-  const { user } = UserStore.getState()
+  const { user } = store
   console.log(user)
-  if (!user && name !== 'sign-in' && name !== 'sign-up') {
-    return {
-      name: 'sign-in'
-    }
+  if (!user && name !== 'signIn' && name !== 'signUp') {
+    return { name: 'signIn' }
+  }
+
+  if (user && name === 'signIn' || name === 'signUp' && user !== null) {
+    return { name: 'home' }
   }
 })
-
 
 export default router
