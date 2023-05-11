@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
 import AuthView from '@/views/AuthView.vue';
 import SignInView from '@/views/SignInView.vue';
-import SignOutView from '@/views/SignOutView.vue';
-import LogInView from '@/views/LogInView.vue';
+import SignUpView from '@/views/SignUpView.vue';
 import UserStore from '@/stores/user';
 
 const router = createRouter({
@@ -21,36 +20,33 @@ const router = createRouter({
       children: [
         {
           path: 'sign-in',
-          name: 'SignIn',
-          component: SignInView
+          name: 'signIn',
+          component: SignInView,
         },
         {
-          path: 'log-in',
-          name: 'LogIn',
-          component: LogInView
+          path: 'sign-up',
+          name: 'signUp',
+          component: SignUpView,
         },
-        {
-          path: 'sign-out',
-          name: 'SignOut',
-          component: SignOutView
-        }
       ]
     },
   ]
 })
 
-export default router
+router.beforeEach(async (to) => {
+  const { name } = to
+  const store  = UserStore();
+  await store.fetchUser()
 
-router.beforeEach((to) => {
-  const useUserStore = UserStore()
-  const isLoginIn = useUserStore.user !== null;
-   if (!isLoginIn && to.name !== 'signIn' && to.name !== 'signOut' ) {
-    return {
-       name: 'signIn'
-    }
-   }
+  const { user } = store
+  console.log(user)
+  if (!user && name !== 'signIn' && name !== 'signUp') {
+    return { name: 'signIn' }
+  }
+
+  if (user && name === 'signIn' || name === 'signUp' && user !== null) {
+    return { name: 'home' }
+  }
 })
 
-
-
-
+export default router

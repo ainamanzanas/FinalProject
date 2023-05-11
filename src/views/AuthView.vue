@@ -1,8 +1,3 @@
-<template>
-    <h1>Auth View</h1>
-    <RouterView />
-</template>
-
 <script>
 import { RouterView } from 'vue-router';
 
@@ -14,5 +9,9 @@ export default {
 }
 </script>
 
-<style>
+<template>
+    <RouterView />
+</template>
+
+<style scoped>
 </style>

@@ -1,41 +1,5 @@
-<script>
-import { mapState, mapActions } from 'pinia'
-import userStore from '@/stores/user'
-
-export default {
-  name: 'SignIn',
-  data() {
-    return {
-      email: this.email,
-      password: this.password
-    }
-  },
-  computed: {
-    ...mapState(userStore, ['user'])
-  },
-  methods: {
-    ...mapActions(userStore, ['signIn']),
-
-    async handleSignIn() {
-      try {
-        const userData = {
-          email: this.email,
-          password: this.password
-        }
-        await this.signIn(userData)
-        this.successMessage = 'Welcome Back'
-        this.$router.push({ name: 'home' })
-      } catch (err) {
-        console.log(err)
-        this.successMessage = false
-      }
-    }
-  },
-}
-</script>
-
 <template>
-  <div class="sign-in-view">
+  <div class="sign-up-view">
     <h1>Organize Your Tasks with AItask</h1>
     <form @submit.prevent>
       <div class="form-section">
@@ -47,16 +11,57 @@ export default {
         <input id="password" type="password" v-model="password" required />
       </div>
       <div class="auth-buttons">
-        <button class="sign-in-btn" @click="handleSignIn" type="submit">Sign In</button>
-        <button class="sign-up-btn" ><RouterLink to="/auth/sign-up" class="router-link">Sign Up</RouterLink></button>
+        <button class='sign-up-btn' @click="handleSignUp" type="submit">Sign Up</button>
+        <button class='sign-in-btn' ><RouterLink to="/auth/sign-in" class="router-link">Sign In</RouterLink></button>
       </div>
     </form>
-    <p v-if="successMessage !== false">{{ successMessage }}</p>
-  </div>
+    <p v-if="errorMessage !== false">{{ errorMessage }}</p>
+    <p v-if="successMessage !== false">{{ successMessage }}</p>  </div>
 </template>
 
+<script>
+import { mapState, mapActions } from 'pinia'
+import userStore from '@/stores/user.js'
+
+export default {
+  name: 'SignUp',
+  data() {
+    return {
+      email: '',
+      password: '',
+      successMessage: false,
+      errorMessage: false,
+    }
+  },
+  computed: {
+    ...mapState(userStore, ['user'])
+  },
+  methods: {
+    ...mapActions(userStore, ['signUp']),
+
+    async handleSignUp() {
+      try {
+        const userData = {
+          email: this.email,
+          password: this.password
+        }
+        await this.signUp(userData)
+        this.successMessage = 'Successful Sign Up'
+        this.errorMessage = false
+        this.signUp(userData)
+        this.$router.push({ name: 'home' })
+      } catch (err) {
+        console.log(err)
+        this.successMessage = false
+        this.errorMessage = 'Sign Up Failed. Please Try Again'
+      }
+    }
+  },
+}
+</script>
+
 <style scoped>
-.sign-in-view {
+.sign-up-view {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,6 +94,7 @@ form {
   align-items: left;
   justify-content: left;
   flex-direction: column;
+  padding: 5%;
   background-color: white;
 }
 
@@ -102,7 +108,6 @@ label {
   align-items: center;
   justify-content: space-between;
 }
-
 
 .auth-buttons {
   display: flex;
@@ -120,20 +125,19 @@ button {
   border-radius: 10px;
 }
 
-.router-link {
-  background-color: black;
-  color: white;
-  text-decoration: none;
-}
-
 .sign-up-btn {
   background-color: black;
   color: white;
   cursor: pointer;
 }
 
+.router-link {
+  color: black;
+  text-decoration: none;
+}
+
 @media only screen and (max-width: 1000px) {
-  .sign-in-view {
+  .sign-up-view {
   padding: 5%;
   margin: 5%;
   }
@@ -142,5 +146,4 @@ button {
 h1 {
   text-align: center;
 }
-
 </style>
