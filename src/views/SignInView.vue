@@ -23,9 +23,11 @@ export default {
           password: this.password
         }
         await this.signIn(userData)
+        this.successMessage = 'Welcome Back'
         this.$router.push({ name: 'home' })
       } catch (err) {
         console.log(err)
+        this.successMessage = false
       }
     }
   },
@@ -36,19 +38,20 @@ export default {
   <div class="sign-in-view">
     <h1>Organize Your Tasks with AItask</h1>
     <form @submit.prevent>
-      <div>
-        <label for="email">Email</label>
+      <div class="form-section">
+        <label for="email">Email:</label>
         <input id="email" type="email" v-model="email" required />
       </div>
-      <div>
-        <label for="password">Password</label>
+      <div class="form-section">
+        <label for="password">Password:</label>
         <input id="password" type="password" v-model="password" required />
       </div>
       <div class="auth-buttons">
-        <button @click="handleSignIn" type="submit">Sign In</button>
-        <button><RouterLink to="/auth/sign-up" class="router-link">Sign Up</RouterLink></button>
+        <button class="sign-in-btn" @click="handleSignIn" type="submit">Sign In</button>
+        <button class="sign-up-btn" ><RouterLink to="/auth/sign-up" class="router-link">Sign Up</RouterLink></button>
       </div>
     </form>
+    <p v-if="successMessage !== false">{{ successMessage }}</p>
   </div>
 </template>
 
@@ -62,6 +65,7 @@ export default {
   padding: 5px;
   border: 2px solid black;
   border-radius: 10px;
+  box-shadow: 5px 5px 10px 5px #364E27;
 }
 
 h1 {
@@ -85,7 +89,6 @@ form {
   align-items: left;
   justify-content: left;
   flex-direction: column;
-  padding: 5%;
   background-color: white;
 }
 
@@ -93,6 +96,13 @@ div,
 label {
   background-color: white;
 }
+
+.form-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 .auth-buttons {
   display: flex;
@@ -108,8 +118,6 @@ button {
   text-align: center;
   border: 2px solid black;
   border-radius: 10px;
-  background-color: black;
-  color: white;
 }
 
 .router-link {
@@ -117,4 +125,22 @@ button {
   color: white;
   text-decoration: none;
 }
+
+.sign-up-btn {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+  .sign-in-view {
+  padding: 5%;
+  margin: 5%;
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
 </style>

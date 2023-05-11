@@ -1,15 +1,17 @@
 <script>
-import { mapState, mapActions } from 'pinia'
-import TaskStore from '@/stores/tasks'
-import UserStore from '@/stores/user'
+import { mapState, mapActions } from 'pinia';
+import TaskStore from '@/stores/tasks';
+import UserStore from '@/stores/user';
+import TaskList from '@/components/TaskList.vue';
 
 export default {
   name: 'HomeView',
-  //components: {
-  // },
+  components: {
+    TaskList,
+  },
   data() {
     return {
-      newTaskTitle: '',
+      taskTitle: '',
     }
   },
   computed: {
@@ -36,37 +38,60 @@ export default {
 </script>
 
 <template>
-  <div class="homeView">
+  <div class="home-view">
     <h1>Your Tasks List</h1>
+    <TaskList />
   </div>
   <button @click="handleSignOut" type="submit" class="sign-out-btn">Sign Out</button>
 </template>
 
 <style scoped>
-.homeView {
+
+.home-view {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   background-color: white;
-  padding: 5px;
   border: 2px solid black;
   border-radius: 10px;
   width: 100%;
+  box-shadow: 5px 5px 10px 5px #364E27;
 }
 
 h1 {
   background-color: white;
+  margin-top: 2%;
 }
 
 .sign-out-btn {
-  font-weight: bold;
-  width: 25%;
+  width: 10%;
   text-align: center;
   border: 2px solid black;
   border-radius: 10px;
-  padding: 5px;
-  background-color: lightgray;
+  padding: 8px;
+  background-color: black;
+  margin: 4% 0 0 65%;
+  box-shadow: 5px 5px 10px 5px #364E27;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 1%;
+  }
+
+  @media only screen and (max-width: 1000px) {
+  .home-view {
+  padding: 0%;
   margin: 5%;
+  margin-bottom: 0;
+  width: 90%;
+  }
 }
+
+h1 {
+  margin-top: 5%;
+}
+
+.sign-out-btn {
+  width: 25%;
+  margin-left: 65%;
+  }
 </style>
