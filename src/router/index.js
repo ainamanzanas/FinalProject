@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AuthView from '@/views/AuthView.vue';
-import SignInView from '@/views/SignInView.vue';
+import SignUpView from '@/views/SignUpView.vue';
 import SignOutView from '@/views/SignOutView.vue';
-import LogInView from '@/views/LogInView.vue';
+import SignInView from '@/views/SignInView.vue';
 import UserStore from '@/stores/user';
 
 const router = createRouter({
@@ -25,9 +25,9 @@ const router = createRouter({
           component: SignInView
         },
         {
-          path: 'log-in',
-          name: 'LogIn',
-          component: LogInView
+          path: 'sign-up',
+          name: 'SignUp',
+          component: SignUpView
         },
         {
           path: 'sign-out',
@@ -43,8 +43,8 @@ export default router
 
 router.beforeEach((to) => {
   const useUserStore = UserStore()
-  const isLoginIn = useUserStore.user !== null;
-   if (!isLoginIn && to.name !== 'signIn' && to.name !== 'signOut' ) {
+  const isSigninIn = useUserStore.user !== null;
+   if (!isSigninIn && to.name !== 'signIn' && to.name !== 'signOut' ) {
     return {
        name: 'signIn'
     }

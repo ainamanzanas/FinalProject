@@ -1,7 +1,7 @@
 <template>
     <div class="task-container">
-      <div class="row">
-        <div>
+      <div>
+        <div class="row">
           <input
             type="text"
             placeholder="New task"
@@ -12,10 +12,10 @@
           <br>
         </div>
       </div>
-      <div class="row">
+      <div class="row2">
         <div>
           <div v-if="tasks.length === 0">
-            <h4>You don't have any task yet. Add some!</h4>
+            <p>You don't have any task yet. Add some!</p>
           </div>
           <ul class="list">
             <li class="list-item" v-for="(task, index) in tasks" v-bind:key="index">
@@ -83,6 +83,27 @@
   </script>
   
   <style scoped>
+
+  input {
+    width: 70%;
+  }
+
+  button {
+    background-color: black;
+    color: white;
+    width: 30%;
+    padding: 8px;
+    margin-left: 10px;
+    border-radius: 5%;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    width: 150%;
+    margin: 20px 0px 20px 0px;
+  }
+
   ul {
     list-style-type: none;
   }
