@@ -1,5 +1,5 @@
 import { defineStore} from "pinia";
-import supabase from '@/supabase/index';
+import supabase from '@/supabase';
 
 export default defineStore('UserStore', {
     state: () => ({
