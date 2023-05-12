@@ -150,7 +150,7 @@ input {
 .add-btn {
   background-color: black;
   color: white;
-  width: 12%;
+  width: 20%;
   padding: 8px;
   margin-left: 10px;
   border-radius: 10px;
@@ -242,7 +242,7 @@ p {
   padding-left: 5%;
   }
   .add-btn {
-  width: 20%;
+  width: 15%;
 }
 .list-item {
   width: 80%;
