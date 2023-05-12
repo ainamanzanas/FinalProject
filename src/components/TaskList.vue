@@ -180,7 +180,7 @@ input {
 .delete-btn {
   background-color: black;
   color: white;
-  width: 30%;
+  width: 40%;
   padding: 8px;
   border: 2px solid black;
   border-radius: 10px;
