@@ -290,7 +290,7 @@ p {
 }
 
   .add-btn {
-  width: 50%;
+  width: 80%;
   padding: 8px;
   margin-top: 5%;
   }
@@ -300,7 +300,7 @@ p {
   }
 
   .delete-btn {
-   width: 80%;
+   width: 100%;
    margin-top: 30px;
    margin-left: 10%;
   }
