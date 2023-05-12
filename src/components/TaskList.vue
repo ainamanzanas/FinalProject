@@ -270,7 +270,7 @@ p {
 
   input {
   margin-top: 20px;
-  width: 50%;
+  width: 80%;
 }
 
 .task-container {
