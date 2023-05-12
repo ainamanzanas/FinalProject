@@ -3,25 +3,25 @@
 
 ¡Bienvenido/a a la Aplicación de Tareas AItask! Esta es una aplicación diseñada para ayudarte a organizar tus tareas diarias de una manera relajada y zen. Además, de guardar tus tareas también cuenta con funcionalidades de autenticación de usuario utilizando Supabase.
 
-##Funcionalidades
+## Funcionalidades
 
-*Registro de usuario
-*Inicio de sesión
-*Cierre de sesión
-*Creación de tareas
-*Edición de tareas (título)
-*Marcar tareas como completadas o por completar
-*Eliminación de tareas
-*Eliminación de todas las tareas
+* Registro de usuario
+* Inicio de sesión
+* Cierre de sesión
+* Creación de tareas
+* Edición de tareas (título)
+* Marcar tareas como completadas o por completar
+* Eliminación de tareas
+* Eliminación de todas las tareas
 
-##Tecnologías utilizadas
+## Tecnologías utilizadas
 La aplicación utiliza las siguientes tecnologías:
+ 
+* Vue.js
+* Pinia
+* Supabase
 
-*Vue.js
-*Pinia
-*Supabase
-
-##Instalación
+## Instalación
 Para ejecutar la aplicación en tu propio equipo, sigue los siguientes pasos:
 
 Clona el repositorio utilizando el comando git clone https://github.com/ainamanzanas/FinalProject.git.
