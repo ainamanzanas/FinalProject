@@ -242,7 +242,7 @@ p {
   padding-left: 5%;
   }
   .add-btn {
-  width: 15%;
+  width: 25%;
 }
 .list-item {
   width: 80%;
