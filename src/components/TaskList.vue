@@ -302,7 +302,7 @@ p {
   .delete-btn {
    width: 100%;
    margin-top: 30px;
-   margin-left: 10%;
+   margin-left: 5%;
   }
 
   .cancel-btn {
