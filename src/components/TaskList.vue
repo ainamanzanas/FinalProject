@@ -260,7 +260,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: 0;
   }
 
@@ -270,7 +270,7 @@ p {
 
   input {
   margin-top: 20px;
-  width: 80%;
+  width: 100%;
 }
 
 .task-container {
